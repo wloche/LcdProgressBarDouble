@@ -1,10 +1,10 @@
 /*
-  DoubleTimer.ino - v1.0.0 - 2016-08-01
+  DoubleTimer.ino - v1.0.1 - 2016-08-01
 
   Showcase of LcdProgressBarDouble library: displays a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
 
-  Copyright (c) 20&6-2008 Wilfried Loche.  All rights reserved.
+  Copyright (c) 2016 Wilfried Loche.  All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ void setup() {
   initLpg();
 }
 
-//-- initializing the progress bar
+//-- initializing the progress bars
 void initLpg()
 {
   //-- start time
@@ -54,7 +54,7 @@ void initLpg()
   lpg.setMinValues(startedMillis1);
   lpg.setMaxValues(startedMillis1 + duration1, startedMillis2 + duration2);
 
-  //-- Draw it: the frame
+  //-- Draw it
   lpg.draw(startedMillis1);
 }
 
