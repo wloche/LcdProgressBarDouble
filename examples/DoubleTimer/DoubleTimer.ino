@@ -1,7 +1,7 @@
 /*
-  DoubleTimer.ino - v1.0.1 - 2016-08-01
+  DoubleTimer.ino - v1.0.2 - 2016-08-01
 
-  Showcase of LcdProgressBarDouble library: displays a 2 progress bars in a single row in LCD display,
+  Showcase of LcdProgressBarDouble library: displays a 2 progress bars in a single row in LCD display -based on time-
   which is previously initialized. This library uses LiquidCrystal library for displaying.
 
   Copyright (c) 2016 Wilfried Loche.  All rights reserved.
@@ -18,7 +18,7 @@
 
 byte lcdNumCols = 16; // -- number of columns in the LCD
 
-LiquidCrystal lcd(12, 11, 5, 4, 3, 8 /*2*/);
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 LcdProgressBarDouble lpg(&lcd, 1, lcdNumCols);
 
 unsigned long duration1 = 20000; // 8000 milliseconds, 8 seconds
