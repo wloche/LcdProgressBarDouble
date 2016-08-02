@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.cpp - library v1.0.1 - 2016-08-01
+  LcdProgressBarDouble.cpp - library v1.0.3 - 2016-08-02
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -13,7 +13,8 @@
 
   See file LICENSE.txt for further informations on licensing terms.
 
-  http://url/of/online/tutorial.cc
+  https://create.arduino.cc/projecthub/wloche/lcdprogressbardouble-707d5c
+  https://github.com/wloche/LcdProgressBarDouble
 */
 #include "Arduino.h"
 #include "LcdProgressBarDouble.h"
@@ -235,18 +236,30 @@ void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
 
   byte progressPos[2] = {0, 0};
 
-  if (value1 > _minValues[0]) {
+  if (_minValues[0] == _maxValues[0]) {
+	//--- Bar1 not initiated: no display
+	progressPos[0] = 0;
+  } else if (value1 > _minValues[0]) {
+	//--- Progress started
     if (value1 >= _maxValues[0]) {
+	  //--- Maximum reached
       progressPos[0] = _computedNumCols;
     } else {
+	  //--- Progress in between
       progressPos[0] = round((float)(value1 - _minValues[0]) / (float)(_computedMaxValues[0]) * _computedNumCols);
     }
   }
 
-  if (value2 > _minValues[1]) {
+  if (_minValues[1] == _maxValues[1]) {
+	//--- Bar2 not initiated: no display
+	progressPos[1] = 0;
+  } else if (value2 > _minValues[1]) {
+	//--- Progress started
     if (value2 >= _maxValues[1]) {
+	  //--- Maximum reached
       progressPos[1] = _computedNumCols;
     } else {
+	  //--- Progress in between
       progressPos[1] = round((float)(value2 - _minValues[1]) / (float)(_computedMaxValues[1]) * _computedNumCols);
     }
   }

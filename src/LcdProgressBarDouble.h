@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.h - v1.0.1 - 2016-08-01
+  LcdProgressBarDouble.h - v1.0.3 - 2016-08-02
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -12,6 +12,9 @@
   version 3 of the License, or (at your option) any later version.
 
   See file LICENSE.txt for further informations on licensing terms.
+
+  https://create.arduino.cc/projecthub/wloche/lcdprogressbardouble-707d5c
+  https://github.com/wloche/LcdProgressBarDouble
 */
 #ifndef LcdProgressBarDouble_h
 #define LcdProgressBarDouble_h
