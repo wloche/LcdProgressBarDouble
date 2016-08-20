@@ -19,8 +19,10 @@ setMaxValue1	KEYWORD2
 setMaxValue2	KEYWORD2
 setRangeValue1	KEYWORD2
 setRangeValue2	KEYWORD2
-draw		KEYWORD2
-drawValues	KEYWORD2
+disableBar1		KEYWORD2
+disableBar2		KEYWORD2
+draw			KEYWORD2
+drawValues		KEYWORD2
 
 ##############################################
 # Constants (LITERAL1)

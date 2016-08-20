@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.cpp - library v1.0.3 - 2016-08-02
+  LcdProgressBarDouble.cpp - library v1.0.4 - 2016-08-19
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -166,7 +166,8 @@ void LcdProgressBarDouble::setMaxValues(unsigned long maxValue1, unsigned long m
 
 void LcdProgressBarDouble::setMaxValue1(unsigned long maxValue1)
 {
-  if (maxValue1 <= _minValues[0]) {
+  // Allow max = min to disable the progress bar
+  if (maxValue1 < _minValues[0]) {
     Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue1 <= _minValues1");
     Serial.print("minValues1="); Serial.println(_minValues[0]);
     Serial.print("maxValue1="); Serial.println(maxValue1);
@@ -184,7 +185,8 @@ void LcdProgressBarDouble::setMaxValue1(unsigned long maxValue1)
 
 void LcdProgressBarDouble::setMaxValue2(unsigned long maxValue2)
 {
-  if (maxValue2 <= _minValues[1]) {
+  // Allow max = min to disable the progress bar
+  if (maxValue2 < _minValues[1]) {
     Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue2 <= _minValues2");
     Serial.print("minValues2="); Serial.println(_minValues[1]);
     Serial.print("maxValue2="); Serial.println(maxValue2);
@@ -213,6 +215,15 @@ void LcdProgressBarDouble::setRangeValue2(unsigned long minValue2, unsigned long
   setMaxValue2(maxValue2);
 }
 
+
+void LcdProgressBarDouble::disableBar1()
+{
+	setRangeValue1(0, 0);
+}
+void LcdProgressBarDouble::disableBar2()
+{
+	setRangeValue2(0, 0);
+}
 
 
 void LcdProgressBarDouble::drawValues(unsigned long value1, unsigned long value2)
