@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.h - v1.0.4 - 2016-08-19
+  LcdProgressBarDouble.h - v1.0.5 - 2016-08-19
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -15,6 +15,11 @@
 
   https://create.arduino.cc/projecthub/wloche/lcdprogressbardouble-707d5c
   https://github.com/wloche/LcdProgressBarDouble
+
+> v1.0.4: DoubleBarPot.ino uses 8036 bytes and 498 bytes of RAM
+> v1.0.5: DoubleBarPot.ino uses 7446 bytes and 310 bytes of RAM
+
+> v1.1.0 (yet to come): Usage of PROGMEM for _bars and _intToBars
 */
 #ifndef LcdProgressBarDouble_h
 #define LcdProgressBarDouble_h
@@ -34,7 +39,7 @@
  * - Uncomment to debug (verbose on Serial monitor)
  * - Comment it to avoid debug messages
  */
-//#define LCDPROGRESSBAR_DEBUG true
+//#define LCDPROGRESSBAR_DEBUG
 
 class LcdProgressBarDouble
 {
@@ -137,8 +142,6 @@ class LcdProgressBarDouble
     int _row = 0;
     //-- Which position is the progress bar: optimization purpose only; refresh LCD only on change
     byte _previousProgressPos[2] = {0xFF, 0xFF};
-
-
 
     static byte _bars[8][8];
     static byte _intToBars[16];

@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.cpp - library v1.0.4 - 2016-08-19
+  LcdProgressBarDouble.cpp - library v1.0.5 - 2016-08-19
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -168,38 +168,42 @@ void LcdProgressBarDouble::setMaxValue1(unsigned long maxValue1)
 {
   // Allow max = min to disable the progress bar
   if (maxValue1 < _minValues[0]) {
-    Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue1 <= _minValues1");
-    Serial.print("minValues1="); Serial.println(_minValues[0]);
-    Serial.print("maxValue1="); Serial.println(maxValue1);
-    delay(100);
+    #ifdef LCDPROGRESSBAR_DEBUG
+      Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue1 <= _minValues1");
+      Serial.print("minValues1="); Serial.println(_minValues[0]);
+      Serial.print("maxValue1="); Serial.println(maxValue1);
+      delay(100);
+    #endif
     exit(100);
   }
   _maxValues[0]         = maxValue1;
   _computedMaxValues[0] = maxValue1 - _minValues[0];
 
-#ifdef LCDPROGRESSBAR_DEBUG2
-  Serial.print("_minValues1="); Serial.print(_minValues[0]);
-  Serial.print(", _maxValues1="); Serial.println(_maxValues[0]);
-#endif
+  #ifdef LCDPROGRESSBAR_DEBUG
+    Serial.print("_minValues1="); Serial.print(_minValues[0]);
+    Serial.print(", _maxValues1="); Serial.println(_maxValues[0]);
+  #endif
 }
 
 void LcdProgressBarDouble::setMaxValue2(unsigned long maxValue2)
 {
   // Allow max = min to disable the progress bar
   if (maxValue2 < _minValues[1]) {
-    Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue2 <= _minValues2");
-    Serial.print("minValues2="); Serial.println(_minValues[1]);
-    Serial.print("maxValue2="); Serial.println(maxValue2);
-    delay(100);
+    #ifdef LCDPROGRESSBAR_DEBUG
+      Serial.println("*LcdProgressBarDouble::setMaxValue() error: maxValue2 <= _minValues2");
+      Serial.print("minValues2="); Serial.println(_minValues[1]);
+      Serial.print("maxValue2="); Serial.println(maxValue2);
+      delay(100);
+    #endif
     exit(100);
   }
   _maxValues[1] 		= maxValue2;
   _computedMaxValues[1] = maxValue2 - _minValues[1];
 
-#ifdef LCDPROGRESSBAR_DEBUG2
-  Serial.print("_minValues2="); Serial.print(_minValues[1]);
-  Serial.print(", _maxValues2="); Serial.println(_maxValues[1]);
-#endif
+  #ifdef LCDPROGRESSBAR_DEBUG
+    Serial.print("_minValues2="); Serial.print(_minValues[1]);
+    Serial.print(", _maxValues2="); Serial.println(_maxValues[1]);
+  #endif
 }
 
 
@@ -235,15 +239,15 @@ void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
 {
   value2 = (value2 == 0) ? value1 : value2;
 
-#ifdef LCDPROGRESSBAR_DEBUG
-  Serial.print("#1# value="); Serial.print(value1);
-  Serial.print(", _minValues="); Serial.print(_minValues[0]);
-  Serial.print(", _maxValues="); Serial.println(_maxValues[0]);
+  #ifdef LCDPROGRESSBAR_DEBUG
+    Serial.print("#1# value="); Serial.print(value1);
+    Serial.print(", _minValues="); Serial.print(_minValues[0]);
+    Serial.print(", _maxValues="); Serial.println(_maxValues[0]);
 
-  Serial.print("#2# value="); Serial.print(value2);
-  Serial.print(", _minValues="); Serial.print(_minValues[1]);
-  Serial.print(", _maxValues="); Serial.println(_maxValues[1]);
-#endif
+    Serial.print("#2# value="); Serial.print(value2);
+    Serial.print(", _minValues="); Serial.print(_minValues[1]);
+    Serial.print(", _maxValues="); Serial.println(_maxValues[1]);
+  #endif
 
   byte progressPos[2] = {0, 0};
 
@@ -276,10 +280,11 @@ void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
   }
 
   if (_previousProgressPos[0] != progressPos[0] || _previousProgressPos[1] != progressPos[1]) {
-#ifdef LCDPROGRESSBAR_DEBUG
-    Serial.print("> progressPos1=");    Serial.print(progressPos[0]);
-    Serial.print(" > progressPos2="); Serial.println(progressPos[1]);
-#endif
+    #ifdef LCDPROGRESSBAR_DEBUG
+      Serial.print("> progressPos1=");    Serial.print(progressPos[0]);
+      Serial.print(" > progressPos2="); Serial.println(progressPos[1]);
+    #endif
+
     _previousProgressPos[0] = progressPos[0];
     _previousProgressPos[1] = progressPos[1];
 
@@ -301,11 +306,11 @@ void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
 		    mask |= tmp << (3 - i);
         }
 
-#ifdef LCDPROGRESSBAR_DEBUG
-        char m[20];
-        sprintf(m, "%x", mask);
-        Serial.print("#"); Serial.print(i); Serial.print("# Mask:"); Serial.print(mask); Serial.print(", "); Serial.println(m);
-#endif
+        #ifdef LCDPROGRESSBAR_DEBUG
+          char m[20];
+          sprintf(m, "%x", mask);
+          Serial.print("#"); Serial.print(i); Serial.print("# Mask:"); Serial.print(mask); Serial.print(", "); Serial.println(m);
+        #endif
 
         _lcd->setCursor(i / 2, _row);
         if (mask == 0) {
