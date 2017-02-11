@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.h - v1.0.5 - 2016-08-19
+  LcdProgressBarDouble.h - v1.1.0 - 2017-02-10
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -18,21 +18,22 @@
 
 > v1.0.4: DoubleBarPot.ino uses 8036 bytes and 498 bytes of RAM
 > v1.0.5: DoubleBarPot.ino uses 7446 bytes and 310 bytes of RAM
-
-> v1.1.0 (yet to come): Usage of PROGMEM for _bars and _intToBars
+> v1.1.0: Usage of PROGMEM for bars and intToBars
+          DoubleBarPot.ino uses 7538 bytes and 230 bytes of RAM
 */
 #ifndef LcdProgressBarDouble_h
 #define LcdProgressBarDouble_h
 
 #include "Arduino.h"
 #include <LiquidCrystal.h>
+#include <avr/pgmspace.h>
 
 /**
  * Version
  * (Major:non-compatible changes) . (Minor:backwards compatible changes) . (Patch:bugfix releases)
  * @refer http://semver.org/
  */
-#define LCDPROGRESSBARDOUBLE_VERSION  "1.0.4"
+#define LCDPROGRESSBARDOUBLE_VERSION  "1.1.0"
 
 /**
  * Debug mode?
@@ -40,6 +41,12 @@
  * - Comment it to avoid debug messages
  */
 //#define LCDPROGRESSBAR_DEBUG
+
+/**
+ * PROGMEM usage?
+ * - Comment to PREVENT using PROGMEM (EEPROM memory instead of RAM)
+ */
+#define LCDPROGRESSBAR_USE_PROGMEM
 
 class LcdProgressBarDouble
 {
@@ -143,8 +150,18 @@ class LcdProgressBarDouble
     //-- Which position is the progress bar: optimization purpose only; refresh LCD only on change
     byte _previousProgressPos[2] = {0xFF, 0xFF};
 
-    static byte _bars[8][8];
-    static byte _intToBars[16];
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+    const static byte bars[];
+#else
+    static byte bars[8][8];
+#endif
+
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+    const static byte intToBars[];
+#else
+    static byte intToBars[16];
+#endif
+
 };
 
 #endif

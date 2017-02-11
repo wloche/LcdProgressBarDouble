@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.cpp - library v1.0.5 - 2016-08-19
+  LcdProgressBarDouble.cpp - library v1.1.0 - 2017-02-10
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -22,108 +22,216 @@
 #include <LiquidCrystal.h>
 
 // -- character with one bar
-byte LcdProgressBarDouble::_bars[8][8] =
-{
-	{   // 0
-	    B11000,
-	    B11000,
-	    B11000,
-	    B00000,
-	    B00000,
-	    B00000,
-	    B00000,
-	    B00000
-	},
-	{   // 1
-		B00000,
-		B00000,
-		B00000,
-		B00000,
-		B00000,
-		B11000,
-		B11000,
-		B00000
-	},
-	{   // 2
-		B11000,
-		B11000,
-		B11000,
-		B00000,
-		B00000,
-		B11000,
-		B11000,
-		B00000
-	},
-	{   // 3
-		B11111,
-		B11111,
-		B11111,
-		B00000,
-		B00000,
-		B00000,
-		B00000,
-		B00000
-	},
-	{	// 4
-		B00000,
-		B00000,
-		B00000,
-		B00000,
-		B00000,
-		B11111,
-		B11111,
-		B00000
-	},
-	{	// 5
-		B11111,
-		B11111,
-		B11111,
-		B00000,
-		B00000,
-		B11000,
-		B11000,
-		B00000
-	},
-	{	// 6
-		B11000,
-		B11000,
-		B11000,
-		B00000,
-		B00000,
-		B11111,
-		B11111,
-		B00000
-	},
-	{	// 7
-		B11111,
-		B11111,
-		B11111,
-		B00000,
-		B00000,
-		B11111,
-		B11111,
-		B00000
-	}
-};
 
-byte LcdProgressBarDouble::_intToBars[16] = {
-  /*  0 */ 16,
-  /*  1 */ 16,
-  /*  2 */ 1,
-  /*  3 */ 4,
-  /*  4 */ 16,
-  /*  5 */ 16,
-  /*  6 */ 16,
-  /*  7 */ 16,
-  /*  8 */ 0,
-  /*  9 */ 16,
-  /* 10 */ 2,
-  /* 11 */ 6,
-  /* 12 */ 3,
-  /* 13 */ 16,
-  /* 14 */ 5,
-  /* 15 */ 7
-};
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+	const byte LcdProgressBarDouble::bars[] PROGMEM =
+	{
+		   // 0
+			B11000,
+			B11000,
+			B11000,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000
+		,
+		   // 1
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		,
+		   // 2
+			B11000,
+			B11000,
+			B11000,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		,
+		   // 3
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000
+		,
+			// 4
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+		,
+			// 5
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		,
+			// 6
+			B11000,
+			B11000,
+			B11000,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+		,
+			// 7
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+	};
+#else
+	byte LcdProgressBarDouble::bars[8][8] =
+	{
+		{   // 0
+		    B11000,
+		    B11000,
+		    B11000,
+		    B00000,
+		    B00000,
+		    B00000,
+		    B00000,
+		    B00000
+		},
+		{   // 1
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		},
+		{   // 2
+			B11000,
+			B11000,
+			B11000,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		},
+		{   // 3
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000
+		},
+		{	// 4
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+		},
+		{	// 5
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B11000,
+			B11000,
+			B00000
+		},
+		{	// 6
+			B11000,
+			B11000,
+			B11000,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+		},
+		{	// 7
+			B11111,
+			B11111,
+			B11111,
+			B00000,
+			B00000,
+			B11111,
+			B11111,
+			B00000
+		}
+	};
+#endif
+
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+	const byte LcdProgressBarDouble::intToBars[] PROGMEM =
+	{
+		/*  0 */ 16,
+		/*  1 */ 16,
+		/*  2 */ 1,
+		/*  3 */ 4,
+		/*  4 */ 16,
+		/*  5 */ 16,
+		/*  6 */ 16,
+		/*  7 */ 16,
+		/*  8 */ 0,
+		/*  9 */ 16,
+		/* 10 */ 2,
+		/* 11 */ 6,
+		/* 12 */ 3,
+		/* 13 */ 16,
+		/* 14 */ 5,
+		/* 15 */ 7
+	};
+#else
+	byte LcdProgressBarDouble::intToBars[16] = {
+		/*  0 */ 16,
+		/*  1 */ 16,
+		/*  2 */ 1,
+		/*  3 */ 4,
+		/*  4 */ 16,
+		/*  5 */ 16,
+		/*  6 */ 16,
+		/*  7 */ 16,
+		/*  8 */ 0,
+		/*  9 */ 16,
+		/* 10 */ 2,
+		/* 11 */ 6,
+		/* 12 */ 3,
+		/* 13 */ 16,
+		/* 14 */ 5,
+		/* 15 */ 7
+	};
+#endif
 
 LcdProgressBarDouble::LcdProgressBarDouble(LiquidCrystal* lcd, int row, int numCols)
 {
@@ -132,9 +240,22 @@ LcdProgressBarDouble::LcdProgressBarDouble(LiquidCrystal* lcd, int row, int numC
   _computedNumCols = numCols * 2;
   _row             = row;
 
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+  byte tmpBar[8];
+#endif
+
   //--- creating characters
   for (byte i = 0; i < 8; ++i) {
-	_lcd->createChar(i, this->_bars[i]);
+
+#ifdef LCDPROGRESSBAR_USE_PROGMEM
+	  for (byte j = 0; j < 8; ++j) {
+		  tmpBar[j] = pgm_read_byte_near(bars + i*8 + j);
+	  }
+	  _lcd->createChar(i, tmpBar);
+#else
+	  _lcd->createChar(i, bars[i]);
+#endif
+
   }
 }
 
@@ -316,7 +437,11 @@ void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
         if (mask == 0) {
 	      _lcd->print(' ');
 	    } else {
-	      _lcd->write(_intToBars[mask]);
+			#ifdef LCDPROGRESSBAR_USE_PROGMEM
+				_lcd->write(pgm_read_byte_near(intToBars + mask));
+			#else
+				_lcd->write(intToBars[mask]);
+			#endif
 	    }
 	  }
     }
