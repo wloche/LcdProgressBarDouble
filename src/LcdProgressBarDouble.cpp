@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.cpp - library v1.1.0 - 2017-02-10
+  LcdProgressBarDouble.cpp - library v1.2.0 - 2018-04-26
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -261,31 +261,31 @@ LcdProgressBarDouble::LcdProgressBarDouble(LiquidCrystal* lcd, int row, int numC
 
 
 
-void LcdProgressBarDouble::setMinValues(unsigned long minValue1, unsigned long minValue2)
+void LcdProgressBarDouble::setMinValues(signed long minValue1, signed long minValue2)
 {
   _minValues[0] = minValue1;
   _minValues[1] = (minValue2 == 0) ? minValue1 : minValue2;
 }
 
-void LcdProgressBarDouble::setMinValue1(unsigned long minValue1)
+void LcdProgressBarDouble::setMinValue1(signed long minValue1)
 {
   _minValues[0] = minValue1;
 }
 
-void LcdProgressBarDouble::setMinValue2(unsigned long minValue2)
+void LcdProgressBarDouble::setMinValue2(signed long minValue2)
 {
   _minValues[1] = minValue2;
 }
 
 
 
-void LcdProgressBarDouble::setMaxValues(unsigned long maxValue1, unsigned long maxValue2)
+void LcdProgressBarDouble::setMaxValues(signed long maxValue1, signed long maxValue2)
 {
   setMaxValue1(maxValue1);
   setMaxValue2((maxValue2 == 0) ? maxValue1 : maxValue2);
 }
 
-void LcdProgressBarDouble::setMaxValue1(unsigned long maxValue1)
+void LcdProgressBarDouble::setMaxValue1(signed long maxValue1)
 {
   // Allow max = min to disable the progress bar
   if (maxValue1 < _minValues[0]) {
@@ -306,7 +306,7 @@ void LcdProgressBarDouble::setMaxValue1(unsigned long maxValue1)
   #endif
 }
 
-void LcdProgressBarDouble::setMaxValue2(unsigned long maxValue2)
+void LcdProgressBarDouble::setMaxValue2(signed long maxValue2)
 {
   // Allow max = min to disable the progress bar
   if (maxValue2 < _minValues[1]) {
@@ -328,13 +328,13 @@ void LcdProgressBarDouble::setMaxValue2(unsigned long maxValue2)
 }
 
 
-void LcdProgressBarDouble::setRangeValue1(unsigned long minValue1, unsigned long maxValue1)
+void LcdProgressBarDouble::setRangeValue1(signed long minValue1, signed long maxValue1)
 {
   setMinValue1(minValue1);
   setMaxValue1(maxValue1);
 }
 
-void LcdProgressBarDouble::setRangeValue2(unsigned long minValue2, unsigned long maxValue2)
+void LcdProgressBarDouble::setRangeValue2(signed long minValue2, signed long maxValue2)
 {
   setMinValue2(minValue2);
   setMaxValue2(maxValue2);
@@ -351,12 +351,12 @@ void LcdProgressBarDouble::disableBar2()
 }
 
 
-void LcdProgressBarDouble::drawValues(unsigned long value1, unsigned long value2)
+void LcdProgressBarDouble::drawValues(signed long value1, signed long value2)
 {
   draw(value1, value2);
 }
 
-void LcdProgressBarDouble::draw(unsigned long value1, unsigned long value2)
+void LcdProgressBarDouble::draw(signed long value1, signed long value2)
 {
   value2 = (value2 == 0) ? value1 : value2;
 

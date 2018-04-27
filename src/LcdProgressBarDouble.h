@@ -1,5 +1,5 @@
 /*
-  LcdProgressBarDouble.h - v1.1.0 - 2017-02-10
+  LcdProgressBarDouble.h - v1.2.0 - 2018-04-26
 
   LcdProgressBarDouble is an Arduino library for displaying a 2 progress bars in a single row in LCD display,
   which is previously initialized. This library uses LiquidCrystal library for displaying.
@@ -20,6 +20,7 @@
 > v1.0.5: DoubleBarPot.ino uses 7446 bytes and 310 bytes of RAM
 > v1.1.0: Usage of PROGMEM for bars and intToBars
           DoubleBarPot.ino uses 7538 bytes and 230 bytes of RAM
+> v1.2.0: Allows negative Integers
 */
 #ifndef LcdProgressBarDouble_h
 #define LcdProgressBarDouble_h
@@ -33,7 +34,7 @@
  * (Major:non-compatible changes) . (Minor:backwards compatible changes) . (Patch:bugfix releases)
  * @refer http://semver.org/
  */
-#define LCDPROGRESSBARDOUBLE_VERSION  "1.1.0"
+#define LCDPROGRESSBARDOUBLE_VERSION  "1.2.0"
 
 /**
  * Debug mode?
@@ -65,47 +66,47 @@ class LcdProgressBarDouble
      * @param minValue1 Starting value
      * @param minValue2 Starting value
      */
-    void setMinValues(unsigned long minValue1, unsigned long minValue2 = 0);
+    void setMinValues(signed long minValue1, signed long minValue2 = 0);
     /**
      * Set the starting value of your progress bar (0 by default)
      * @param minValue1 Starting value
      */
-    void setMinValue1(unsigned long minValue);
+    void setMinValue1(signed long minValue);
     /**
      * Set the starting value of your progress bar (0 by default)
      * @param minValue2 Starting value
      */
-    void setMinValue2(unsigned long minValue);
+    void setMinValue2(signed long minValue);
 
     /**
      * Set the finishing values of your progress bar (must be provided)
      * @param maxValue1 Finishing value
      * @param maxValue2 Finishing value
      */
-    void setMaxValues(unsigned long maxValue1, unsigned long maxValue2 = 0);
+    void setMaxValues(signed long maxValue1, signed long maxValue2 = 0);
     /**
      * Set the finishing value of your progress bar (mandatory)
      * @param maxValue1 Finishing value
      */
-    void setMaxValue1(unsigned long maxValue);
+    void setMaxValue1(signed long maxValue);
     /**
      * Set the finishing value of your progress bar (mandatory)
      * @param maxValue2 Finishing value
      */
-    void setMaxValue2(unsigned long maxValue);
+    void setMaxValue2(signed long maxValue);
 
     /**
      * Set the starting and finishing values of your progress bar at once
      * @param minValue1 Starting value
      * @param maxValue1 Finishing value
      */
-    void setRangeValue1(unsigned long minValue1, unsigned long maxValue1);
+    void setRangeValue1(signed long minValue1, signed long maxValue1);
     /**
      * Set the starting and finishing values of your progress bar at once
      * @param minValue2 Starting value
      * @param maxValue2 Finishing value
      */
-    void setRangeValue2(unsigned long minValue2, unsigned long maxValue2);
+    void setRangeValue2(signed long minValue2, signed long maxValue2);
 
     /**
      * Disable primary progress bar
@@ -124,22 +125,22 @@ class LcdProgressBarDouble
      * Draw the progress bar on the LCD
      * @param value Value to draw
      */
-    void draw(unsigned long value1, unsigned long value2 = 0);
+    void draw(signed long value1, signed long value2 = 0);
     /**
      * Alias on draw() (LcdBarGraph style :))
      */
-    void drawValues(unsigned long value1, unsigned long value2 = 0);
+    void drawValues(signed long value1, signed long value2 = 0);
 
   private:
     //-- LiquidCrystal instance
     LiquidCrystal* _lcd;
 
     //-- Starting values
-    unsigned long _minValues[2] = {0, 0};
+    signed long _minValues[2] = {0, 0};
     //-- Finishing values
-    unsigned long _maxValues[2];
+    signed long _maxValues[2];
     //-- Computed finishing values (optimization purpose only, to avoid some repetitive maths)
-    unsigned long _computedMaxValues[2];
+    signed long _computedMaxValues[2];
 
     //-- Number of columns your LCD has (16, 8, ...)
     int _numCols = 0;
