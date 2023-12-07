@@ -58,7 +58,7 @@ class LcdProgressBarDouble
      * @param row     Which row to display. 0 is the 1st row, 1 is the second, ...
      * @param numCols Number of columns your LCD has (16, 8, ...)
      */
-    LcdProgressBarDouble(LiquidCrystal* lcd, int row = 0, int numCols = 16);
+    LcdProgressBarDouble(LiquidCrystal* lcd, int row = 0, int numCols = 16, int col = 0);
 
 
     /**
@@ -148,6 +148,8 @@ class LcdProgressBarDouble
     int _computedNumCols = 0;
     //-- Which row to display. 0 is the 1st row, 1 is the second, ...
     int _row = 0;
+    //-- Which column to display. 0 is the 1st column, 1 is the second, ...
+    int _col = 0;
     //-- Which position is the progress bar: optimization purpose only; refresh LCD only on change
     byte _previousProgressPos[2] = {0xFF, 0xFF};
 
