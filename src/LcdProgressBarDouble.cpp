@@ -27,7 +27,7 @@
 	const byte LcdProgressBarDouble::bars[] PROGMEM =
 	{
 		   // 0
-			B11000,
+			B00000,
 			B11000,
 			B11000,
 			B00000,
@@ -47,7 +47,7 @@
 			B00000
 		,
 		   // 2
-			B11000,
+			B00000,
 			B11000,
 			B11000,
 			B00000,
@@ -57,7 +57,7 @@
 			B00000
 		,
 		   // 3
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -77,7 +77,7 @@
 			B00000
 		,
 			// 5
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -87,7 +87,7 @@
 			B00000
 		,
 			// 6
-			B11000,
+			B00000,
 			B11000,
 			B11000,
 			B00000,
@@ -97,7 +97,7 @@
 			B00000
 		,
 			// 7
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -110,7 +110,7 @@
 	byte LcdProgressBarDouble::bars[8][8] =
 	{
 		{   // 0
-		    B11000,
+		    B00000,
 		    B11000,
 		    B11000,
 		    B00000,
@@ -130,7 +130,7 @@
 			B00000
 		},
 		{   // 2
-			B11000,
+			B00000,
 			B11000,
 			B11000,
 			B00000,
@@ -140,7 +140,7 @@
 			B00000
 		},
 		{   // 3
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -160,7 +160,7 @@
 			B00000
 		},
 		{	// 5
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -170,7 +170,7 @@
 			B00000
 		},
 		{	// 6
-			B11000,
+			B00000,
 			B11000,
 			B11000,
 			B00000,
@@ -180,7 +180,7 @@
 			B00000
 		},
 		{	// 7
-			B11111,
+			B00000,
 			B11111,
 			B11111,
 			B00000,
@@ -233,11 +233,12 @@
 	};
 #endif
 
-LcdProgressBarDouble::LcdProgressBarDouble(LiquidCrystal* lcd, int row, int numCols)
+LcdProgressBarDouble::LcdProgressBarDouble(LiquidCrystal* lcd, int row, int numCols, int col)
 {
   _lcd             = lcd;
   _numCols         = numCols;
   _computedNumCols = numCols * 2;
+  _col             = col;
   _row             = row;
 
 #ifdef LCDPROGRESSBAR_USE_PROGMEM
@@ -433,7 +434,7 @@ void LcdProgressBarDouble::draw(signed long value1, signed long value2)
           Serial.print("#"); Serial.print(i); Serial.print("# Mask:"); Serial.print(mask); Serial.print(", "); Serial.println(m);
         #endif
 
-        _lcd->setCursor(i / 2, _row);
+        _lcd->setCursor((i / 2) + _col, _row);
         if (mask == 0) {
 	      _lcd->print(' ');
 	    } else {
